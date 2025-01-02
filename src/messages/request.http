@@ -1,0 +1,20 @@
+### Send message
+
+POST http://localhost:3000/messages
+Content-Type: application/json
+
+{
+    "senderId": 1,
+    "receiverId": 3,
+    "text": "Glad to hear"
+}
+
+
+### Get chat messages
+GET  http://localhost:3000/messages
+Content-Type: application/json
+
+{
+    "senderId": 1,
+    "receiverId": 2
+}
