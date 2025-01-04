@@ -84,7 +84,7 @@ export class ChatGateway
   ) {
     const userId = client.handshake.query.userId as string;
     const receiverSocketId = this.getSocketId(recepientId);
-    this.server.to(receiverSocketId).emit('user-activity', { typing: true });
+    this.server.to(receiverSocketId).emit('user-activity', userId);
 
     console.log(userId, ' is typing');
   }
