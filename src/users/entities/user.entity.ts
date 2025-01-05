@@ -1,7 +1,10 @@
+import { Group } from 'src/groups/entities/group.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -31,4 +34,12 @@ export class User {
 
   @Column({ name: 'last_login', default: () => 'CURRENT_TIMESTAMP' })
   lastLogin: Date;
+
+  @ManyToMany(() => Group, (group) => group.users)
+  @JoinTable({
+    name: 'user_group',
+    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'group_id', referencedColumnName: 'id' },
+  })
+  groups: Group[];
 }
