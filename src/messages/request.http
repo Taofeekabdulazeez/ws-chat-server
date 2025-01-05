@@ -1,3 +1,25 @@
+### Sign up
+
+POST http://localhost:8000/auth/signup
+Content-Type: application/json
+
+{
+    "email": "basit@gmail.com",
+    "fullName": "Abdulraheem Abdulbasit",
+    "password": "qwerty"
+}
+
+
+### Sign in
+POST http://localhost:8000/auth/signin
+Content-Type: application/json
+
+{
+    "email": "basit@gmail.com"
+}
+
+
+
 ### Send message
 
 POST http://localhost:3000/messages

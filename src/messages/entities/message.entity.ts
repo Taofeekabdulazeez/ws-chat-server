@@ -5,16 +5,16 @@ import {
   CreateDateColumn,
 } from 'typeorm';
 
-@Entity('messages')
+@Entity('message')
 export class Message {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ name: 'sender_id' })
-  senderId: number;
+  senderId: string;
 
   @Column({ name: 'receiver_id' })
-  receiverId: number;
+  receiverId: string;
 
   @Column({ type: 'text' })
   text: string;

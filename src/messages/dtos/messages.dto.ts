@@ -2,19 +2,19 @@ import { IsNumber, IsString } from 'class-validator';
 
 export class CreateMessageDto {
   @IsNumber()
-  senderId: number;
+  senderId: string;
 
   @IsNumber()
-  receiverId: number;
+  receiverId: string;
 
   @IsString()
   text: string;
 }
 
 export class GetChatMessagesDto {
-  @IsNumber()
-  senderId: number;
+  @IsString()
+  senderId: string;
 
-  @IsNumber()
-  receiverId: number;
+  @IsString()
+  receiverId: string;
 }

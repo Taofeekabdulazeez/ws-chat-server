@@ -8,9 +8,9 @@ import {
   Post,
   Res,
 } from '@nestjs/common';
-import { MessagesService } from './messages.service';
 import { Response } from 'express';
-import { CreateMessageDto, GetChatMessagesDto } from './messages.dto';
+import { CreateMessageDto, GetChatMessagesDto } from '../dtos/messages.dto';
+import { MessagesService } from '../services/messages.service';
 
 @Controller('messages')
 export class MessagesController {
@@ -29,8 +29,8 @@ export class MessagesController {
 
   @Get(':senderId/chat/:receiverId')
   async getMessages(
-    @Param('senderId', ParseIntPipe) senderId: number,
-    @Param('receiverId', ParseIntPipe) receiverId: number,
+    @Param('senderId') senderId: string,
+    @Param('receiverId') receiverId: string,
     @Res() res: Response,
   ) {
     const messages = await this.messagesService.findAllChatMessages(
