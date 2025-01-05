@@ -89,9 +89,10 @@ export class ChatGateway
     console.log(userId, ' is typing');
   }
 
-  handleDisconnect(@ConnectedSocket() client: Socket) {
+  async handleDisconnect(@ConnectedSocket() client: Socket) {
     const userId = client.handshake.query.userId as string;
     delete this.userSocketMap[userId];
+    await this.usersService.saveLastLogin(userId);
 
     this.server.emit('get-online-users', Object.keys(this.userSocketMap));
 

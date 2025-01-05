@@ -72,6 +72,13 @@ export class UsersService {
     return user;
   }
 
+  async saveLastLogin(userId: string) {
+    const user = await this.usersRepository.findOne({ where: { id: userId } });
+    user.lastLogin = new Date(new Date().toISOString());
+
+    return this.usersRepository.save(user);
+  }
+
   async findAllUsers() {
     const allUsers = await this.usersRepository.find();
 
