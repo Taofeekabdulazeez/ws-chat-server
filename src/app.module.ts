@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { MessagesModule } from './messages/messages.module';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
+import { GroupsModule } from './groups/groups.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ConfigModule } from '@nestjs/config';
     UsersModule,
     AuthModule,
     MessagesModule,
+    GroupsModule,
     DatabaseModule,
   ],
   controllers: [AppController],

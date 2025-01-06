@@ -45,7 +45,7 @@ export class ChatGateway
 
   @SubscribeMessage('get-online-users')
   async handleGetUsers(@ConnectedSocket() client: Socket) {
-    const users = await this.usersService.getUsers();
+    const users = await this.usersService.findAllUsers();
     client.emit('online-users', users);
   }
 
@@ -59,7 +59,9 @@ export class ChatGateway
     const senderSocketId = this.getSocketId(message.senderId);
     console.log(receiverSocketId, senderSocketId);
 
-    await this.messagesService.createMessage(message);
+    console.log({ message });
+
+    // await this.messagesService.createMessage(message);
 
     // if (!senderSocketId) return;
 

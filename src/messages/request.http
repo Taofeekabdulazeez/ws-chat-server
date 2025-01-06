@@ -22,21 +22,15 @@ Content-Type: application/json
 
 ### Send message
 
-POST http://localhost:3000/messages
+POST http://localhost:8000/messages
 Content-Type: application/json
 
 {
-    "senderId": 1,
-    "receiverId": 3,
-    "text": "Glad to hear"
+    "senderId": "2ba73fbb-4483-4ae6-9f43-df85c6a00a7d",
+    "receiverId": "a29f2fbc-cfe0-40d3-be50-7dbda57b5994",
+    "text": "Good"
 }
 
 
 ### Get chat messages
-GET  http://localhost:3000/messages
-Content-Type: application/json
-
-{
-    "senderId": 1,
-    "receiverId": 2
-}
+GET  http://localhost:8000/messages/2ba73fbb-4483-4ae6-9f43-df85c6a00a7d/chat/a29f2fbc-cfe0-40d3-be50-7dbda57b5994
