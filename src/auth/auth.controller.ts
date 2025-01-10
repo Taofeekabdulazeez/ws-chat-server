@@ -32,6 +32,7 @@ export class AuthController {
   @Get('users')
   async getAllUsers(@Res() res: Response) {
     const users = await this.usersService.findAllUsers();
+    console.log(users);
 
     return res.status(HttpStatus.OK).json({ message: 'success', data: users });
   }

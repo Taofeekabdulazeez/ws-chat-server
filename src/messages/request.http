@@ -4,8 +4,8 @@ POST http://localhost:8000/auth/signup
 Content-Type: application/json
 
 {
-    "email": "basit@gmail.com",
-    "fullName": "Abdulraheem Abdulbasit",
+    "email": "tao@gmail.com",
+    "fullName": "Abdulazeez Taofeek",
     "password": "qwerty"
 }
 
@@ -15,7 +15,7 @@ POST http://localhost:8000/auth/signin
 Content-Type: application/json
 
 {
-    "email": "basit@gmail.com"
+    "email": "tao@gmail.com"
 }
 
 
@@ -33,4 +33,11 @@ Content-Type: application/json
 
 
 ### Get chat messages
-GET  http://localhost:8000/messages/2ba73fbb-4483-4ae6-9f43-df85c6a00a7d/chat/a29f2fbc-cfe0-40d3-be50-7dbda57b5994
+GET  http://localhost:8000/messages/574106e8-a366-478c-ae24-3d8249886427/chat/8d020e04-bd59-419d-9692-d274b3f7eba1
+
+
+### Get all users
+GET  http://localhost:8000/auth/users
+
+
+

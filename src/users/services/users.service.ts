@@ -45,6 +45,7 @@ export const users = [
 
 @Injectable()
 export class UsersService {
+  onlineUsers: Array<string> = [];
   constructor(
     @InjectRepository(User) private readonly usersRepository: Repository<User>,
   ) {}

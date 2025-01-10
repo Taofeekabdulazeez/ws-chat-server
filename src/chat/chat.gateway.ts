@@ -12,7 +12,7 @@ import { Server, Socket } from 'socket.io';
 import { MessagesService } from 'src/messages/services/messages.service';
 import { UsersService } from 'src/users/services/users.service';
 
-@WebSocketGateway({ cors: { origin: '*' } })
+@WebSocketGateway({ namespace: 'chat', cors: { origin: '*' } })
 export class ChatGateway
   implements OnGatewayConnection<Socket>, OnGatewayDisconnect<Socket>
 {
@@ -24,11 +24,13 @@ export class ChatGateway
     private readonly messagesService: MessagesService,
   ) {}
 
-  handleConnection(@ConnectedSocket() client: Socket) {
+  async handleConnection(@ConnectedSocket() client: Socket) {
     const userId = client.handshake.query.userId as string;
     console.log('New client connected ===> ', userId);
 
     if (userId) this.userSocketMap[userId] = client.id;
+    const user = await this.usersService.findUserById(userId);
+    this.usersService.onlineUsers.push(user.fullName);
 
     this.server.emit('get-online-users', Object.keys(this.userSocketMap));
   }
@@ -59,15 +61,13 @@ export class ChatGateway
     const senderSocketId = this.getSocketId(message.senderId);
     console.log(receiverSocketId, senderSocketId);
 
-    console.log({ message });
-
-    // await this.messagesService.createMessage(message);
+    const newMessage = await this.messagesService.createMessage(message);
 
     // if (!senderSocketId) return;
 
     this.server
       .to([receiverSocketId, senderSocketId])
-      .emit('chat-update', message);
+      .emit('chat-update', newMessage);
     console.log(message);
   }
 

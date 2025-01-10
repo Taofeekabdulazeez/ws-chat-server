@@ -1,22 +1,24 @@
 import {
-  WebSocketGateway,
+  ConnectedSocket,
   OnGatewayConnection,
   OnGatewayDisconnect,
-  ConnectedSocket,
-  WebSocketServer,
+  WebSocketGateway,
 } from '@nestjs/websockets';
-import { Server, Socket } from 'socket.io';
+import { Socket } from 'socket.io';
+import { UsersService } from 'src/users/services/users.service';
 
-@WebSocketGateway(3000, { origin: '*' })
-export class GroupChatGateWay
+@WebSocketGateway({ namespace: 'group-chat', cors: { origin: '*' } })
+export class GroupChatGateway
   implements OnGatewayConnection<Socket>, OnGatewayDisconnect<Socket>
 {
-  @WebSocketServer() private readonly server: Server;
-  private usersSocketMap = {};
+  constructor(private readonly usersService: UsersService) {}
 
   handleConnection(@ConnectedSocket() client: Socket) {
-    // const userId = this.usersSocketMap;
+    console.log(client.id + ' joined');
+    console.log('Online users ===> ', this.usersService.onlineUsers);
   }
 
-  handleDisconnect(@ConnectedSocket() client: Socket) {}
+  handleDisconnect(@ConnectedSocket() client: Socket) {
+    console.log(client.id + ' left');
+  }
 }

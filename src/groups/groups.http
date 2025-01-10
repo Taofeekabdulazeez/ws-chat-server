@@ -1,0 +1,27 @@
+### Create group
+POST http://localhost:8000/groups
+Content-Type: application/json
+
+{
+    "name": "Tym",
+    "description": "For study"
+}
+
+### Get group by ID
+GET http://localhost:8000/groups/98614b57-8e48-4d18-9a10-68b3a6769add
+
+### Get all groups
+GET  http://localhost:8000/groups
+
+### Delete group by ID
+DELETE  http://localhost:8000/groups/eeb22c28-4983-475b-bd8c-053050dbbf47
+
+
+### Update group by ID
+PATCH  http://localhost:8000/groups/98614b57-8e48-4d18-9a10-68b3a6769add
+Content-Type: application/json
+
+{
+    "name": "Tym",
+    "description": "For study"
+}
