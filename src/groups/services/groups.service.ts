@@ -1,13 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Group } from '../entities/group.entity';
 import { Repository } from 'typeorm';
+import { UserGroup } from '../entities/user-group.entity';
 
 @Injectable()
 export class GroupsService {
   constructor(
     @InjectRepository(Group)
     private readonly groupsRepository: Repository<Group>,
+    private readonly user_group: Repository<UserGroup>,
   ) {}
 
   async createGroup(data: any) {
@@ -17,7 +19,10 @@ export class GroupsService {
   }
 
   async findGroupById(id: string) {
-    const group = await this.groupsRepository.findOne({ where: { id } });
+    const group = await this.groupsRepository.findOne({
+      where: { id },
+      relations: ['users'],
+    });
 
     return group;
   }
@@ -39,5 +44,12 @@ export class GroupsService {
 
   async deleteGroupById(id: string) {
     await this.groupsRepository.delete({ id });
+  }
+
+  async addUsertoGroup(userId: string, groupId: string) {
+    const group = await this.findGroupById(groupId);
+    const userAlreadyInGroup = group.users.find((user) => user.id === userId);
+    if (userAlreadyInGroup)
+      throw new UnprocessableEntityException('User already in groud');
   }
 }
