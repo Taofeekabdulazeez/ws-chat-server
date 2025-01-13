@@ -9,6 +9,7 @@ export class GroupsService {
   constructor(
     @InjectRepository(Group)
     private readonly groupsRepository: Repository<Group>,
+    @InjectRepository(UserGroup)
     private readonly user_group: Repository<UserGroup>,
   ) {}
 
