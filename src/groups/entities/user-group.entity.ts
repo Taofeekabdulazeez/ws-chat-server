@@ -4,6 +4,7 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  PrimaryColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Group } from './group.entity';
@@ -18,6 +19,12 @@ export class UserGroup {
 
   @CreateDateColumn({ name: 'joined_at' })
   joinedAt: Date;
+
+  @PrimaryColumn({ name: 'user_id', type: 'uuid' })
+  userId: string;
+
+  @PrimaryColumn({ name: 'group_id', type: 'uuid' })
+  groupId: string;
 
   @ManyToOne(() => User, (user) => user.groups)
   user: User;
