@@ -1,0 +1,3 @@
+### Delete user
+DELETE http://localhost:8000/users/basit@gmail.com
+Content-Type: application/json

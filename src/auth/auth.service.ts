@@ -5,7 +5,7 @@ import { UsersService } from 'src/users/services/users.service';
 export class AuthService {
   constructor(private readonly usersService: UsersService) {}
 
-  async loginUser(id: number) {
-    return this.usersService.getUser(id);
+  async loginUser(id: string) {
+    return this.usersService.findUserById(id);
   }
 }

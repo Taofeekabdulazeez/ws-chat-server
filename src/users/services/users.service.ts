@@ -86,11 +86,7 @@ export class UsersService {
     return allUsers;
   }
 
-  async getUsers() {
-    return users;
-  }
-
-  async getUser(id: number) {
-    return users.find((user) => user.id === id);
+  async deleteUserByEmail(email: string) {
+    await this.usersRepository.delete({ email });
   }
 }

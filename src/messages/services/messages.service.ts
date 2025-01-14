@@ -16,6 +16,11 @@ export class MessagesService {
     return this.messagesRepository.save(newMessage);
   }
 
+  async findMessageById(id: number) {
+    const message = await this.messagesRepository.findOne({ where: { id } });
+    return message;
+  }
+
   async findAllChatMessages(senderId: string, receiverId: string) {
     const messages = await this.messagesRepository.find({
       where: [
@@ -25,5 +30,12 @@ export class MessagesService {
       order: { timestamp: 'ASC' },
     });
     return messages;
+  }
+
+  async likeMessage(messageId: number) {
+    const message = await this.findMessageById(messageId);
+    message.isLiked = true;
+
+    return await this.messagesRepository.save(message);
   }
 }

@@ -24,4 +24,7 @@ export class Message {
 
   @Column({ default: false })
   isRead: boolean;
+
+  @Column({ default: false })
+  isLiked: boolean;
 }
