@@ -24,7 +24,7 @@ export class ChatGateway
     private readonly messagesService: MessagesService,
   ) {}
 
-  async handleConnection(@ConnectedSocket() client: Socket) {
+  public async handleConnection(@ConnectedSocket() client: Socket) {
     const userId = client.handshake.query.userId as string;
     console.log('New client connected ===> ', userId);
 
@@ -36,7 +36,7 @@ export class ChatGateway
   }
 
   @SubscribeMessage('message') // socket.on('message');
-  handleMessage(
+  public handleMessage(
     @MessageBody() message: any,
     @ConnectedSocket() client: Socket,
   ) {
@@ -46,13 +46,13 @@ export class ChatGateway
   }
 
   @SubscribeMessage('get-online-users')
-  async handleGetUsers(@ConnectedSocket() client: Socket) {
+  public async handleGetUsers(@ConnectedSocket() client: Socket) {
     const users = await this.usersService.findAllUsers();
     client.emit('online-users', users);
   }
 
   @SubscribeMessage('new-message')
-  async handleNewMessage(
+  public async handleNewMessage(
     @ConnectedSocket() client: Socket,
     @MessageBody() message: any,
   ) {
@@ -72,7 +72,7 @@ export class ChatGateway
   }
 
   @SubscribeMessage('selected-user')
-  handleSelectedUser(
+  public handleSelectedUser(
     @ConnectedSocket() client: Socket,
     @MessageBody() selectedUser: any,
   ) {
@@ -80,7 +80,7 @@ export class ChatGateway
   }
 
   @SubscribeMessage('user-typing')
-  handleUserTyping(
+  public handleUserTyping(
     @ConnectedSocket() client: Socket,
     @MessageBody() recepientId: string,
   ) {
@@ -91,7 +91,7 @@ export class ChatGateway
     console.log(userId, ' is typing');
   }
 
-  async handleDisconnect(@ConnectedSocket() client: Socket) {
+  public async handleDisconnect(@ConnectedSocket() client: Socket) {
     const userId = client.handshake.query.userId as string;
     delete this.userSocketMap[userId];
     await this.usersService.saveLastLogin(userId);
