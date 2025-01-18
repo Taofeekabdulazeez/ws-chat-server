@@ -7,7 +7,10 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Delete('/:email')
-  async deleteUser(@Param('email') email: string, @Res() response: Response) {
+  public async deleteUser(
+    @Param('email') email: string,
+    @Res() response: Response,
+  ) {
     await this.usersService.deleteUserByEmail(email);
 
     return response
