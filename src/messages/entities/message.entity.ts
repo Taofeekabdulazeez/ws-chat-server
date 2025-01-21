@@ -1,8 +1,11 @@
+import { Chat } from 'src/chat/entities/chat.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 
 @Entity('message')
@@ -27,4 +30,11 @@ export class Message {
 
   @Column({ default: false })
   isLiked: boolean;
+
+  @Column({ name: 'chat_id' })
+  chatId: string;
+
+  @ManyToOne(() => Chat, (chat) => chat.messages)
+  @JoinColumn({ name: 'chat_id' })
+  chat: Chat;
 }

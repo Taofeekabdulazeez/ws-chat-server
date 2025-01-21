@@ -1,0 +1,2 @@
+### Get auth user chats
+GET http://localhost:8000/auth/user/1fd5cf23-4df4-46e4-8272-46fdb130548e/chats

@@ -8,6 +8,9 @@ export class CreateMessageDto {
   receiverId: string;
 
   @IsString()
+  chatId: string;
+
+  @IsString()
   text: string;
 }
 

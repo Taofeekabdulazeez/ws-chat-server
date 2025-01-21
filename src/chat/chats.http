@@ -1,0 +1,22 @@
+### Create chat
+POST http://localhost:8000/chats
+Content-Type: application/json
+
+{
+    "users": ["1fd5cf23-4df4-46e4-8272-46fdb130548e", "9a2774d5-8c46-4752-aa0c-50d92acfecd6"]
+}
+
+### Saved message
+POST http://localhost:8000/chats/712149c2-ca48-4a18-ab44-7af16d264a49/messages
+Content-Type: application/json
+
+{
+    "senderId": "1fd5cf23-4df4-46e4-8272-46fdb130548e",
+    "receiverId": "9a2774d5-8c46-4752-aa0c-50d92acfecd6",
+    "text": "Salam alaykum"
+}
+
+
+### Get chat messages
+GET  http://localhost:8000/chats/f3373214-a014-4cb8-9e8b-c0f596599b95/messages
+Content-Type: application/json

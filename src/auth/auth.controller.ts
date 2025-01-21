@@ -1,4 +1,13 @@
-import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  ParseUUIDPipe,
+  Post,
+  Res,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
 import { UsersService } from 'src/users/services/users.service';
@@ -35,5 +44,15 @@ export class AuthController {
     console.log(users);
 
     return res.status(HttpStatus.OK).json({ message: 'success', data: users });
+  }
+
+  @Get('user/:id/chats')
+  async getUserChats(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Res() res: Response,
+  ) {
+    const chats = await this.usersService.findAllUserChats(id);
+
+    return res.status(HttpStatus.OK).json({ message: 'success', data: chats });
   }
 }

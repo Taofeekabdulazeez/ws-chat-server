@@ -1,3 +1,4 @@
+import { Chat } from 'src/chat/entities/chat.entity';
 import { Group } from 'src/groups/entities/group.entity';
 import {
   Column,
@@ -34,6 +35,14 @@ export class User {
 
   @Column({ name: 'last_login', default: () => 'CURRENT_TIMESTAMP' })
   lastLogin: Date;
+
+  @ManyToMany(() => Chat, (chat) => chat.users)
+  @JoinTable({
+    name: 'user_chat',
+    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'chat_id', referencedColumnName: 'id' },
+  })
+  chats: Chat[];
 
   @ManyToMany(() => Group, (group) => group.users)
   @JoinTable({

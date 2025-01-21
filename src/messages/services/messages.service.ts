@@ -21,6 +21,14 @@ export class MessagesService {
     return message;
   }
 
+  public async findMessagesByChatId(id: string) {
+    const messages = await this.messagesRepository.find({
+      where: { chatId: id },
+    });
+
+    return messages;
+  }
+
   public async findAllChatMessages(senderId: string, receiverId: string) {
     const messages = await this.messagesRepository.find({
       where: [
