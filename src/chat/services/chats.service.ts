@@ -6,7 +6,6 @@ import { UsersService } from 'src/users/services/users.service';
 import { CreateChatDto } from '../dtos/create-chat.dto';
 import { CreateMessageDto } from 'src/messages/dtos/messages.dto';
 import { MessagesService } from 'src/messages/services/messages.service';
-import { Message } from 'src/messages/entities/message.entity';
 
 @Injectable()
 export class ChatsService {
@@ -39,10 +38,6 @@ export class ChatsService {
     chatId: string,
     data: { receiverId: string; senderId: string; text: string },
   ) {
-    // const chat = await this.chatsRepository.findOne({ where: { id: chatId }, relations: ['messages'] })
-    // const newMessage = new Message();
-    // Object.assign(newMessage, data);
-
     const newMessage = await this.messagesService.createMessage({
       ...data,
       chatId,

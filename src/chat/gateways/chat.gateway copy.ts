@@ -11,8 +11,6 @@ import {
 import { Server, Socket } from 'socket.io';
 import { MessagesService } from 'src/messages/services/messages.service';
 import { UsersService } from 'src/users/services/users.service';
-import { ChatsService } from '../services/chats.service';
-import { send } from 'process';
 
 @WebSocketGateway({ namespace: 'chat', cors: { origin: '*' } })
 export class ChatGateway
@@ -24,7 +22,6 @@ export class ChatGateway
   constructor(
     private readonly usersService: UsersService,
     private readonly messagesService: MessagesService,
-    private readonly chatService: ChatsService,
   ) {}
 
   public async handleConnection(@ConnectedSocket() client: Socket) {
@@ -32,6 +29,8 @@ export class ChatGateway
     console.log('New client connected ===> ', userId);
 
     if (userId) this.userSocketMap[userId] = client.id;
+    const user = await this.usersService.findUserById(userId);
+    this.usersService.onlineUsers.push(user.fullName);
 
     this.server.emit('get-online-users', Object.keys(this.userSocketMap));
   }
@@ -62,15 +61,7 @@ export class ChatGateway
     const senderSocketId = this.getSocketId(message.senderId);
     console.log(receiverSocketId, senderSocketId);
 
-    const chatId = message.chatId as string;
-
-    const messageData = {
-      senderId: message.senderId as string,
-      receiverId: message.receiverId as string,
-      text: message.text as string,
-    };
-
-    const newMessage = await this.chatService.saveMessage(chatId, messageData);
+    const newMessage = await this.messagesService.createMessage(message);
 
     // if (!senderSocketId) return;
 

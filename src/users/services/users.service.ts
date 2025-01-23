@@ -14,19 +14,19 @@ export class UsersService {
     private readonly messagesService: MessagesService,
   ) {}
 
-  async createUser(data: UserSignUpDto) {
+  public async createUser(data: UserSignUpDto) {
     const newUser = this.usersRepository.create(data);
 
     return this.usersRepository.save(newUser);
   }
 
-  async findUserById(id: string) {
+  public async findUserById(id: string) {
     const user = await this.usersRepository.findOneBy({ id });
 
     return user;
   }
 
-  async findUserByEmail(email: string) {
+  public async findUserByEmail(email: string) {
     const user = await this.usersRepository.findOne({ where: { email } });
 
     if (!user)
@@ -37,20 +37,20 @@ export class UsersService {
     return user;
   }
 
-  async saveLastLogin(userId: string) {
+  public async saveLastLogin(userId: string) {
     const user = await this.usersRepository.findOne({ where: { id: userId } });
     user.lastLogin = new Date(new Date().toISOString());
 
     return this.usersRepository.save(user);
   }
 
-  async findAllUsers() {
+  public async findAllUsers() {
     const allUsers = await this.usersRepository.find();
 
     return allUsers;
   }
 
-  async deleteUserByEmail(email: string) {
+  public async deleteUserByEmail(email: string) {
     await this.usersRepository.delete({ email });
   }
 
