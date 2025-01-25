@@ -57,7 +57,7 @@ export class UsersService {
   public async findAllUserChats(userId: string) {
     const user = await this.usersRepository.findOne({
       where: { id: userId },
-      relations: ['chats', 'chats.messages', 'chats.users'],
+      relations: ['chats'],
     });
 
     return user.chats;

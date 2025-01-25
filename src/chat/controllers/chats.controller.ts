@@ -29,10 +29,15 @@ export class ChatsController {
   }
 
   @Get(':id')
-  public async getChat(@Param('id', ParseUUIDPipe) id: string) {
+  public async getChat(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Res() response: Response,
+  ) {
     const chat = await this.chatsService.findChatById(id);
 
-    return chat;
+    return response
+      .status(HttpStatus.OK)
+      .json({ message: 'success', data: chat });
   }
 
   @Post(':id/messages')

@@ -6,6 +6,9 @@ Content-Type: application/json
     "users": ["1fd5cf23-4df4-46e4-8272-46fdb130548e", "b9e197e9-cc9c-496b-8697-a9c863a87741"]
 }
 
+### Get chat
+GET http://localhost:8000/chats/712149c2-ca48-4a18-ab44-7af16d264a49
+
 ### Saved message
 POST http://localhost:8000/chats/2ecc50b5-3e26-43f9-8caf-901184ebf13a/messages
 Content-Type: application/json
