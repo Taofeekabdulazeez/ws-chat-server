@@ -58,6 +58,9 @@ export class UsersService {
     const user = await this.usersRepository.findOne({
       where: { id: userId },
       relations: ['chats'],
+      order: {
+        updatedAt: 'DESC',
+      },
     });
 
     return user.chats;

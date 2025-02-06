@@ -3,7 +3,7 @@ POST http://localhost:8000/chats
 Content-Type: application/json
 
 {
-    "users": ["1fd5cf23-4df4-46e4-8272-46fdb130548e", "b9e197e9-cc9c-496b-8697-a9c863a87741"]
+    "users": ["2b77be01-5387-4303-a915-ed0c28e7acee", "646dd466-4251-4773-91df-8e228a2ac521"]
 }
 
 ### Get chat

@@ -1,2 +1,12 @@
 ### Get auth user chats
 GET http://localhost:8000/auth/user/9a2774d5-8c46-4752-aa0c-50d92acfecd6/chats
+
+### Sign up
+POST http://localhost:8000/auth/signup
+Content-Type: application/json
+
+{
+    "email": "micheal@gmail.com",
+    "fullName": "Micheal Oyebola",
+    "password": "qwerty"
+}
