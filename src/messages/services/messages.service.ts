@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { Message } from '../entities/message.entity';
 import { CreateMessageDto } from '../dtos/messages.dto';
 
@@ -49,5 +49,12 @@ export class MessagesService {
 
   public async deleteMessageById(id: number) {
     await this.messagesRepository.delete(id);
+  }
+
+  public async saveMessagesAsRead(messagesId: string[]) {
+    return await this.messagesRepository.update(
+      { id: In(messagesId) },
+      { isRead: true },
+    );
   }
 }

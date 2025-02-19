@@ -29,6 +29,9 @@ export class Message {
   isRead: boolean;
 
   @Column({ default: false })
+  isDelivered: boolean;
+
+  @Column({ default: false })
   isLiked: boolean;
 
   @Column({ name: 'chat_id' })
