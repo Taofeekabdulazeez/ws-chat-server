@@ -15,7 +15,7 @@ import { AppConfig } from 'src/config.interface';
         username: 'postgres',
         password: 'qwerty',
         database: 'assesslab',
-        logging: true,
+        logging: false,
         entities: ['dist/**/*.entity{.ts,.js}'],
         synchronize: true,
       }),

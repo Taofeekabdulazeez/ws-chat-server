@@ -12,7 +12,6 @@ import { Server, Socket } from 'socket.io';
 import { MessagesService } from 'src/messages/services/messages.service';
 import { UsersService } from 'src/users/services/users.service';
 import { ChatsService } from '../services/chats.service';
-import { send } from 'process';
 
 @WebSocketGateway({ namespace: 'chat', cors: { origin: '*' } })
 export class ChatGateway
@@ -76,7 +75,7 @@ export class ChatGateway
 
     this.server
       .to([receiverSocketId, senderSocketId])
-      .emit('chat-update', newMessage);
+      .emit(`chat-update/${chatId}`, newMessage);
     console.log(message);
   }
 
