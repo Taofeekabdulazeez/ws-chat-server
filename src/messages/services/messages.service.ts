@@ -40,9 +40,9 @@ export class MessagesService {
     return messages;
   }
 
-  public async likeMessage(messageId: number) {
+  public async togglelikeMessage(messageId: number) {
     const message = await this.findMessageById(messageId);
-    message.isLiked = true;
+    message.isLiked = !message.isLiked;
 
     return await this.messagesRepository.save(message);
   }

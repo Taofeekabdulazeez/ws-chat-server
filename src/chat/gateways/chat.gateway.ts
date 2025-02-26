@@ -51,6 +51,40 @@ export class ChatGateway
     client.emit('online-users', users);
   }
 
+  @SubscribeMessage('read-messages')
+  public async handleReadMessages(
+    @ConnectedSocket() client: Socket,
+    @MessageBody() body: any,
+  ) {
+    const { messagesId, receiverId } = body;
+    console.log(body);
+    const receiverSocketId = this.getSocketId(receiverId);
+    await this.messagesService.saveMessagesAsRead(messagesId);
+
+    // client.emit('message-read', 'Message has been read');
+    console.log(receiverSocketId);
+
+    this.server
+      .to([receiverSocketId])
+      .emit('message-read', 'Some view your message');
+  }
+
+  @SubscribeMessage('like-message')
+  public async handleToggleLikeMessage(
+    @ConnectedSocket() client: Socket,
+    @MessageBody() message: any,
+  ) {
+    const { id, senderId } = message;
+    const receiverSocketId = this.getSocketId(message.receiverId);
+    const senderSocketId = this.getSocketId(message.senderId);
+
+    await this.messagesService.togglelikeMessage(id);
+
+    this.server
+      .to([senderSocketId, receiverSocketId])
+      .emit(`message/${id}/toggle-like`);
+  }
+
   @SubscribeMessage('new-message')
   public async handleNewMessage(
     @ConnectedSocket() client: Socket,
